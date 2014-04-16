@@ -13,8 +13,11 @@ text_sample = "trusthardtooxhbrtooth"
 pattern_sample = "tool"
 --
 
+check plen = [(plen-1), (plen-2) .. 1]
+
 genBadMatchTable :: Pattern -> Bmtable
-genBadMatchTable p = execState (st p $ reverse [1 .. ((plen)-1)]) Map.empty where
+genBadMatchTable p = execState (st p rindices) Map.empty where
+    rindices = [(plen-1), (plen-2) .. 1]
     plen = length p
     st [x] _         = do l <- get
                           if Map.member x l
